@@ -32,6 +32,9 @@ def main():
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
+    # lab 4 write up
+    dispatcher.add_handler(CommandHandler("hello", hello))
+
     # To start the bot:
     updater.start_polling()
     updater.idle()
@@ -61,6 +64,11 @@ def add(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('You have said ' + msg + ' for ' + redis1.get(msg).decode('UTF-8') + ' times.')
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
+
+
+# lab 4 write up
+def hello(update: Update, context: CallbackContext) -> None:
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Good day, {0}!".format(context.args[0]))
 
 
 if __name__ == '__main__':
